@@ -1,0 +1,47 @@
+item_name,category,unit_price,current_stock,min_stock_level
+Paper plates,product,0.1,748,144
+100 lb cover stock,specialty,0.5,636,85
+Glossy paper,paper,0.2,587,147
+Rolls of banner paper (36-inch width),large_format,2.5,546,65
+Photo paper,paper,0.25,423,58
+Cardstock,paper,0.15,595,148
+Colored paper,paper,0.1,788,143
+80 lb text paper,specialty,0.4,249,91
+Large poster paper (24x36 inches),large_format,1.0,699,89
+Table covers,product,1.5,736,77
+Butcher paper,paper,0.1,365,80
+Kraft paper,paper,0.1,493,64
+Banner paper,paper,0.3,793,128
+Presentation folders,product,0.5,389,97
+Patterned paper,paper,0.15,548,119
+A4 paper,paper,0.05,272,135
+Invitation cards,product,0.5,526,149
+Crepe paper,paper,0.05,234,104
+250 gsm cardstock,specialty,0.3,436,72
+Legal-size paper,paper,0.08,481,106
+Notepads,product,2.0,399,55
+220 gsm poster paper,specialty,0.35,356,134
+Paper cups,product,0.08,651,68
+Paper napkins,product,0.02,418,96
+Matte paper,paper,0.18,448,69
+Letterhead paper,paper,0.12,627,142
+Recycled paper,paper,0.08,355,105
+Flyers,product,0.15,492,50
+Eco-friendly paper,paper,0.12,605,102
+Decorative adhesive tape (washi tape),product,0.2,256,57
+Wrapping paper,paper,0.15,367,65
+Heavyweight paper,paper,0.2,799,120
+Sticky notes,product,0.03,613,74
+Party streamers,product,0.05,707,63
+Paper party bags,product,0.25,764,142
+Disposable cups,product,0.1,535,146
+Poster paper,paper,0.25,418,53
+Bright-colored paper,paper,0.12,286,83
+Standard copy paper,paper,0.04,696,76
+Letter-sized paper,paper,0.06,699,142
+Decorative paper,paper,0.18,335,139
+Construction paper,paper,0.07,796,145
+Uncoated paper,paper,0.06,307,98
+Glitter paper,paper,0.22,725,133
+Name tags with lanyards,product,0.75,217,143
+Envelopes,product,0.05,458,91

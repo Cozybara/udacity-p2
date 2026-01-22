@@ -8,7 +8,7 @@ from sqlalchemy.sql import text
 from datetime import datetime, timedelta
 from typing import Dict, List, Union
 from sqlalchemy import create_engine, Engine
-
+from difflib import get_close_matches
 from smolagents import (
     ToolCallingAgent,
     OpenAIServerModel,
@@ -450,8 +450,8 @@ def get_supplier_delivery_date(input_date_str: str, quantity: int) -> str:
 
     Delivery lead time increases with order size:
         - ≤10 units: same day
-        - 11–100 units: 1 day
-        - 101–1000 units: 4 days
+        - 11-100 units: 1 day
+        - 101-1000 units: 4 days
         - >1000 units: 7 days
 
     Args:
@@ -584,6 +584,26 @@ def search_quote_history(search_terms: List[str], limit: int = 5) -> List[Dict]:
         result = conn.execute(text(query), params)
         return [dict(row._mapping) for row in result]
 
+def find_closest_inventory_item(item_name: str, inventory_df: pd.DataFrame) -> str:
+    choices = inventory_df["item_name"].tolist()
+    match = get_close_matches(item_name, choices, n=1, cutoff=0.6)  # 0.6 = 60% similarity
+    return match[0] if match else None
+
+def search_item_price(item_name: str) -> float:
+    """
+    Retrieve the unit price for an item from inventory.
+    Args:
+        item_name (str): The name of the item to look up.
+    Returns:
+        float: The unit price of the item.
+    """
+    
+    inventory_df = pd.read_sql("SELECT * FROM inventory", db_engine)
+    closest_item = find_closest_inventory_item(item_name, inventory_df)
+    if not closest_item:
+        raise ValueError(f"No pricing found for item '{item_name}' (no close match in inventory)")
+    return float(inventory_df[inventory_df["item_name"] == closest_item]["unit_price"].iloc[0])
+
 ########################
 ########################
 ########################
@@ -622,12 +642,12 @@ def list_inventory(as_of_date: str) -> dict:
                 - item_name (str): The name of the inventory item.
                 - current_stock (int): The current stock level of the item.
     """
+    # date = datetime.now().isoformat()
     inventory = get_all_inventory(as_of_date)
     return {
         "as_of_date": as_of_date,
         "inventory": inventory
     }
-
 
 @tool
 def check_item_stock(item_name: str, as_of_date: str) -> dict:
@@ -668,7 +688,16 @@ def estimate_restock_date(
             - estimated_delivery_date (str): The estimated delivery date in ISO format.
     """
     delivery_date = get_supplier_delivery_date(request_date, quantity)
-
+    # Assume a unit price lookup for cost calculation
+    unit_price = search_item_price(item_name)
+    # Record the stock order transaction
+    create_transaction(
+        item_name=item_name,
+        transaction_type="stock_orders",
+        quantity=quantity,
+        price=quantity * unit_price,
+        date=delivery_date
+    )
     return {
         "item_name": item_name,
         "requested_quantity": quantity,
@@ -685,18 +714,7 @@ def get_unit_price(item_name: str) -> float:
     Returns:
         float: The unit price of the item.
     """
-    query = """
-        SELECT unit_price
-        FROM inventory
-        WHERE item_name = :item_name
-    """
-    result = pd.read_sql(query, db_engine, params={"item_name": item_name})
-
-    if result.empty:
-        raise ValueError(f"No pricing found for item '{item_name}'")
-
-    return float(result.iloc[0]["unit_price"])
-
+    return search_item_price(item_name)
 
 @tool
 def generate_quote(
@@ -720,9 +738,9 @@ def generate_quote(
             - can_fulfill (bool): Whether the requested quantity can be fulfilled with current stock
     """
     stock_df = get_stock_level(item_name, request_date)
-    available_stock = int(stock_df["current_stock"].iloc[0])
+    available_stock = stock_df["current_stock"].iloc[0]
 
-    unit_price = get_unit_price(item_name)
+    unit_price = search_item_price(item_name)
     total_price = unit_price * quantity
 
     return {
@@ -731,9 +749,9 @@ def generate_quote(
         "unit_price": unit_price,
         "total_price": total_price,
         "available_stock": available_stock,
-        "can_fulfill": available_stock >= quantity
+        "can_fulfill": available_stock >= quantity,
+        "partial_available": available_stock if available_stock < quantity else None
     }
-
 
 @tool
 def lookup_quote_history(search_terms: List[str]) -> List[dict]:
@@ -775,57 +793,69 @@ def process_sale(
             - cash_balance_after_sale (float): The updated cash balance after the sale.
     """
     
-    # Check stock availability
-    stock = get_stock_level(item_name, request_date)["current_stock"].iloc[0]
+    # Fulfill as much as possible
+    inventory_df = pd.read_sql("SELECT * FROM inventory", db_engine)
+    closest_item = find_closest_inventory_item(item_name, inventory_df)
 
-    # Reject if insufficient stock
-    if stock < quantity:
+    if not closest_item:
+        return {"status": "rejected", "reason": "Item not found"}
+
+    item_name = closest_item
+
+    stock = get_stock_level(item_name, request_date)["current_stock"].iloc[0]
+    fulfilled_qty = min(quantity, stock)
+
+    if fulfilled_qty == 0:
         return {
             "status": "rejected",
-            "reason": "Insufficient stock",
+            "reason": "Out of stock",
             "available_stock": stock
         }
-    
-    # Else proceed with sale
+
     unit_price = pd.read_sql(
-        "SELECT unit_price FROM inventory WHERE item_name = :item",
+        "SELECT unit_price FROM inventory WHERE LOWER(TRIM(item_name)) = LOWER(:item)",
         db_engine,
-        params={"item": item_name}
+        params={"item": item_name.strip()}
     ).iloc[0]["unit_price"]
 
-    total_price = unit_price * quantity
+    total_price = unit_price * fulfilled_qty
 
     transaction_id = create_transaction(
         item_name=item_name,
         transaction_type="sales",
-        quantity=quantity,
+        quantity=fulfilled_qty,
         price=total_price,
         date=request_date
     )
 
     updated_cash = get_cash_balance(request_date)
 
-    return {
+    response = {
         "transaction_id": transaction_id,
         "item_name": item_name,
-        "quantity": quantity,
+        "requested_quantity": quantity,
+        "fulfilled_quantity": fulfilled_qty,
         "total_price": total_price,
         "cash_balance_after_sale": updated_cash
     }
+
+    if fulfilled_qty < quantity:
+        response["status"] = "partially_fulfilled"
+        response["reason"] = f"Only {fulfilled_qty} units available out of requested {quantity}"
+    else:
+        response["status"] = "fulfilled"
+
+    return response
 
 
 # Set up your agents and create an orchestration agent that will manage them.
 # Inventory agent
 class InventoryManagerAgent(ToolCallingAgent):
     """Agent responsible for managing inventory availability and restocking."""
-    def __init__(self, model):
+    def __init__(self, model:OpenAIServerModel):
         super().__init__(
             model=model,
-            tools=[
-                list_inventory,
-                check_item_stock,
-                estimate_restock_date
-            ],
+            tools=[list_inventory,check_item_stock,estimate_restock_date],
             name="inventory_manager",
             description="Manages inventory availability and supplier restocking timelines."
         )
@@ -834,14 +864,10 @@ class InventoryManagerAgent(ToolCallingAgent):
 # Quoting agent
 class QuotingManagerAgent(ToolCallingAgent):
     """Agent responsible for generating quotes and pricing explanations."""
-    def __init__(self, model):
+    def __init__(self, model:OpenAIServerModel):
         super().__init__(
             model=model,
-            tools=[
-                get_unit_price,
-                generate_quote,
-                lookup_quote_history
-            ],
+            tools=[get_unit_price,generate_quote,lookup_quote_history ],
             name="quoting_manager",
             description="Generates quotes and pricing explanations using inventory and historical data."
         )
@@ -849,12 +875,10 @@ class QuotingManagerAgent(ToolCallingAgent):
 # Ordering agent
 class OrderingManagerAgent(ToolCallingAgent):
     """Agent responsible for finalizing customer orders and recording sales transactions."""
-    def __init__(self, model):
+    def __init__(self, model:OpenAIServerModel):
         super().__init__(
             model=model,
-            tools=[
-                process_sale
-            ],
+            tools=[process_sale],
             name="ordering_manager",
             description="Finalizes customer orders and records sales transactions."
         )
@@ -874,7 +898,7 @@ class OrchestrationAgent(ToolCallingAgent):
 
         # Orchestrator Routing tools
         @tool
-        def inventory_lookup(item_name: str, as_of_date: str) -> dict:
+        def inventory_lookup(item_name: str, as_of_date: str = datetime.now().strftime("%Y-%m-%d")) -> dict:
             """
             Route an inventory inquiry to the Inventory Manager agent.
             Args:
@@ -884,15 +908,7 @@ class OrchestrationAgent(ToolCallingAgent):
                 Dict: The inventory status returned by the Inventory Manager agent.
             """
             try:
-                return self.inventory_manager.run(
-                    f"""
-                    Check inventory for:
-                    - Item: {item_name}
-                    - Date: {as_of_date}
-
-                    Use the appropriate inventory tools.
-                    """
-                )
+                return self.inventory_manager.run(f"Check inventory for {item_name} with date {as_of_date}. Use the appropriate inventory tools. Provide restock date if not available")
             except Exception as e:
                 return {"status": "error", "message": str(e)}
 
@@ -908,21 +924,12 @@ class OrchestrationAgent(ToolCallingAgent):
                 Dict: The quote details returned by the Quoting Manager agent.
             """
             try:
-                return self.quoting_manager.run(
-                    f"""
-                    Generate a quote for:
-                    - Item: {item_name}
-                    - Quantity: {quantity}
-                    - Date: {request_date}
-
-                    Use pricing and quote history tools as needed.
-                    """
-                )
+                return self.quoting_manager.run(f"Generate a quote for  {item_name} with {quantity} and date {request_date}.Use pricing and quote history tools as needed.")
             except Exception as e:
                 return {"status": "error", "message": str(e)}
 
         @tool
-        def finalize_sale(item_name: str, quantity: int, request_date: str) -> dict:
+        def finalize_sale(item_name: str, quantity: int, request_date: str = datetime.now().strftime("%Y-%m-%d")) -> dict:
             """
             Route a sales transaction to the Ordering Manager agent.
             Args:
@@ -933,15 +940,12 @@ class OrchestrationAgent(ToolCallingAgent):
                 Dict: The sale confirmation returned by the Ordering Manager agent.
             """
             try:
+                # return self.ordering_manager.run(f"Finalize a sale for {item_name} with quantity {quantity} and date {request_date}. Ensure inventory exists before completing the sale." )
                 return self.ordering_manager.run(
-                    f"""
-                    Finalize a sale:
-                    - Item: {item_name}
-                    - Quantity: {quantity}
-                    - Date: {request_date}
-
-                    Ensure inventory exists before completing the sale.
-                    """
+                    f"Finalize a sale for {item_name} with quantity {quantity} and date {request_date}. "
+                    f"Always sell as many units as are currently available, even if less than requested. "
+                    f"Do not ask the user for confirmation."
+                    f"Return the sale details including any partial fulfillment information."
                 )
             except Exception as e:
                 return {"status": "error", "message": str(e)}
@@ -956,11 +960,15 @@ class OrchestrationAgent(ToolCallingAgent):
             name="orchestrator",
             description="""
             Central orchestration agent for Beaver's Choice Paper Company.
+            
+            Additional info:
+            - All request shouls be based on today's date unless otherwise specified by the user.
 
             Responsibilities:
             - Interpret user intent
             - Route requests to the correct specialized agent
             - Never perform inventory, pricing, or sales logic directly
+            - Do sell whatever is available in inventory even if other items in the request are out of stock.
 
             Routing rules:
             - Inventory questions → inventory_lookup
@@ -982,7 +990,9 @@ class OrchestrationAgent(ToolCallingAgent):
         - Quote / pricing → pricing_lookup
         - Purchase / order → finalize_sale
 
-        Call exactly ONE routing tool.
+        Call exactly ONE routing tool. And use the corresponding request date if provided by the user.
+        At the end, provide a summary in one consise response to the user with the items that were bought and the ones that didn't.
+        Also return on each item that were out of stock, when we there is going to be restocked if possible.
         """
         return self.run(orchestration_prompt)
 

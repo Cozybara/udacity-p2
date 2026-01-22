@@ -1,0 +1,26 @@
+request_id,request_date,cash_balance,inventory_value,response
+1,2025-04-01,45059.7,4940.299999999999,"The requested items cannot be fully supplied as the colored paper (assorted colors) and heavy cardstock (white) are out of stock. The A4 glossy paper can be ordered, but confirmation is pending for the other two items."
+2,2025-04-03,45059.7,4940.299999999999,"The order cannot be placed because the colorful poster paper and balloons are out of stock, and pricing information for streamers is unavailable."
+3,2025-04-04,45059.7,4940.299999999999,"The order cannot be completed as both printer paper and A3 paper are out of stock, with restocking expected in January 2026. Please consider selecting alternative options or waiting for restocking."
+4,2025-04-05,45059.7,4940.299999999999,Both the high-quality recycled cardstock and A4 size printer paper are out of stock and cannot be ordered at this time.
+5,2025-04-05,45059.7,4940.299999999999,"The order for 500 sheets of 8.5""x11"" colored paper, 300 sheets of cardstock, and 200 rolls of decorative washi tape cannot be fulfilled as both the cardstock and decorative washi tape are currently out of stock."
+6,2025-04-06,45059.7,4940.299999999999,The order cannot be fulfilled as both cardstock and colorful construction paper are out of stock and cannot be delivered by the requested date.
+7,2025-04-07,45059.7,4940.299999999999,"The order for the paper supplies cannot be fulfilled due to insufficient inventory for heavyweight cardstock, poster boards, and matte A3 paper. Please consider reordering these items after restock."
+8,2025-04-07,45059.7,4940.299999999999,The order could not be completed due to insufficient inventory for the requested paper supplies including A4 recycled paper and glossy paper.
+9,2025-04-07,45059.7,4940.299999999999,"The order cannot be fulfilled as both A3 glossy paper and A4 white printer paper are out of stock until April 8, 2025. Additionally, 100% recycled kraft paper envelopes are out of stock."
+13,2025-04-08,45059.7,4940.299999999999,"Both A4 printing paper and cardstock are out of stock, so the order cannot be fulfilled."
+12,2025-04-08,45059.7,4940.299999999999,"The order cannot be fulfilled as all requested items (colorful cardstock, standard printer paper, and paper napkins) are currently out of stock with no available pricing information for standard printer paper."
+10,2025-04-08,45059.7,4940.299999999999,"High-quality glossy paper is not available as of 2025-04-08. Estimated restock date is 2025-04-09. Here’s the quote for your order of 500 sheets of high-quality glossy paper:
+- Item: High-Quality Glossy Paper
+- Quantity: 500 sheets
+- Unit Price: $0.20 per sheet
+- Total Cost: $100.00
+- Delivery Date: April 8, 2025."
+11,2025-04-08,45059.7,4940.299999999999,The order for 500 sheets of A3 glossy paper and 300 sheets of A4 matte paper cannot be completed as both items are currently out of stock with no available inventory.
+14,2025-04-09,45059.7,4940.299999999999,The order cannot be fulfilled as both cardstock and poster paper are out of stock and A4 paper has insufficient stock to meet the order quantity.
+15,2025-04-12,45059.7,4940.299999999999,The order cannot be completed as A3 colored paper is currently unavailable and the cardboard is out of stock as well. No sufficient inventory is available for the requested items.
+16,2025-04-13,45059.7,4940.299999999999,"The order cannot be placed as A4 printer paper, colorful construction paper, and poster board are all out of stock."
+17,2025-04-14,45059.7,4940.299999999999,"The order cannot be placed as both paper plates and paper cups are out of stock, and the remaining items are not available until April 15, 2025."
+18,2025-04-14,45059.7,4940.299999999999,The order could not be placed as both high-quality white cardstock and colored paper are out of stock.
+19,2025-04-15,45059.7,4940.299999999999,"Cardstock in assorted colors is not available and cannot be ordered at this time. We have a pricing estimate for A4 glossy paper: 2000 sheets for a total of $400.00, with a delivery date of April 15, 2025."
+20,2025-04-17,45059.7,4940.299999999999,"All requested items (flyers, posters, tickets) are currently out of stock and no pricing information is available for any of them. As a result, the order cannot be processed."

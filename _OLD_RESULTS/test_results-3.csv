@@ -1,0 +1,31 @@
+request_id,request_date,cash_balance,inventory_value,response
+1,2025-04-01,42324.22,7675.78,"Both A4 glossy paper and heavy cardstock are out of stock, and unable to place an order for these supplies as requested."
+2,2025-04-03,42324.22,7675.78,"The order could not be placed due to the unavailability of the requested items: colorful poster paper, streamers, and balloons."
+3,2025-04-04,42337.82,7662.179999999999,"The order has been confirmed for 272 sheets of A4 paper, which will be delivered by April 15, 2025. The transaction was successfully completed with a total price of $13.60. Unfortunately, the orders for A3 paper and printer paper could not be fulfilled due to stock limitations."
+4,2025-04-05,42337.82,7662.179999999999,The order cannot be fulfilled as both the high-quality recycled cardstock and A4 size printer paper are currently out of stock.
+5,2025-04-05,42337.82,7662.179999999999,"The order cannot be fulfilled due to the unavailability of the following items: 500 sheets of 8.5""x11"" colored paper and decorative washi tape (200 rolls). Only the cardstock in various colors (300 sheets) can be ordered."
+6,2025-04-06,42337.82,7662.179999999999,"All requested items (colorful construction paper, white printer paper, and cardstock) are currently out of stock and cannot be ordered."
+7,2025-04-07,42337.82,7662.179999999999,"The order for the following items cannot be finalized due to inventory issues:
+- Heavyweight cardstock: Currently out of stock.
+
+Available items:
+- Glossy A4 paper: 500 sheets can be purchased for $25.00.
+- Matte A3 paper: Pricing or availability is currently unknown.
+- Poster boards (24"" x 36""): Pricing or availability is currently unknown."
+8,2025-04-07,42337.82,7662.179999999999,"The order cannot be completed as A4 glossy paper, A4 recycled paper, A5 colored paper, and A4 matte paper are all out of stock or not available for the requested delivery date."
+9,2025-04-07,42337.82,7662.179999999999,The order cannot be placed as both the 100% recycled kraft paper envelopes and the A3 glossy paper are currently out of stock. Please consider checking back later or look for alternative products.
+13,2025-04-08,42337.82,7662.179999999999,Both A4 printing paper and cardstock are out of stock and cannot be ordered.
+12,2025-04-08,42337.82,7662.179999999999,"The order cannot be fulfilled as paper napkins and colorful cardstock are out of stock, and standard printer paper is also out of stock. Please review the items and quantities for the order."
+10,2025-04-08,42337.82,7662.179999999999,"Both items, high-quality glossy paper and sturdy cardstock, are currently out of stock and cannot be fulfilled. Please consider checking back after the estimated restock dates."
+11,2025-04-08,42337.82,7662.179999999999,The order cannot be completed because both A4 matte paper is out of stock and A3 glossy paper is also unavailable.
+14,2025-04-09,42337.82,7662.179999999999,"All requested items (A4 paper, poster paper, and cardstock) are currently out of stock and cannot be ordered."
+15,2025-04-12,42337.82,7662.179999999999,"The order cannot be completed as all requested items (A4 white paper, A3 colored paper, and cardboard) are out of stock."
+16,2025-04-13,42337.82,7662.179999999999,The order cannot be placed as all requested items are currently out of stock.
+17,2025-04-14,42337.82,7662.179999999999,"The order cannot be fulfilled as all requested items are either out of stock or unavailable. Specifically, the paper plates, A4 white printer paper, A3 colored paper, table napkins, and paper cups are not available for delivery by the requested date."
+18,2025-04-14,42337.82,7662.179999999999,"All requested paper supplies are currently out of stock. The estimated restock dates are: 
+- Colored paper in assorted colors: 2023-10-02
+- High-quality white cardstock: 2026-01-23
+- Standard printing paper: 2026-01-23
+Please check back after these dates for availability."
+19,2025-04-15,42337.82,7662.179999999999,"Cardstock in assorted colors is currently out of stock. Restock is estimated by 2023-10-02.\n\n### Quote Summary:\n- **Item:** A3 Matte Paper\n- **Quantity:** 1500 sheets\n- **Unit Price:** $0.18 per sheet\n- **Total Amount:** $270.00\n- **Delivery Date:** April 15, 2025\n\nIf you would like to proceed with the order or require further assistance, please let me know!"
+20,2025-04-17,42337.82,7662.179999999999,"The items requested for the order (flyers, posters, and tickets) are currently out of stock, and no quotes can be generated for the tickets and the posters. Therefore, the order cannot be placed at this time."

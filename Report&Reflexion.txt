@@ -1,0 +1,30 @@
+For the improvement done on the starter code: 
+* I end it up adding 4 Agents as shown in the diagram, 1 of those is the Orchestrator.
+The 3 main agents are: Inventory Manager, Pricing Manager, Sales Manager in charge of calling their corresponding tools.
+Most of the core of the functionalities were provided by the starter script, the only addition to this was the search_item_price 
+so the system was a little bit more decouple when it comes to tooling and functionalities.
+
+The outcome of this initial iteration wasn't fully the expected one by one main reason:
+* The generated initial inventory didn't support the scenarios that were being queried to the Orchestrator. Since all the requests
+came with some item that was either not in stock or not present at all, invalidating the submission to process the sale.
+* After some subsequent changes i was able to successfully sell some products and request the ones not in stock.
+
+Now, improvements that can be done to this Orchestrator are:
+* Definetely adding the capability to better capture the item that needs to be process, since i saw a few iterations that we had the stock
+but due to the iteam being requested with special character and it wasn't an exact match it notified that the item is not in stock and more
+was requested with the delivery date.
+* Additional logic to support the state of the delivery of the products is needed, so this can be also implemented/improved in the future. 
+As of now it just request them but no subsequent update once the day arrives. Most likely a new agent to check this and update inventory 
+is required.
+* Error handling to avoid repetetion of tool request is needed. There is a current raw implementation of this and a future improvement is 
+needed to speed up the processing time of the request.
+
+This Captstone definetely took me longer than expected due to the overwelming amount of initial code, missing a single step or missing
+the goalpost for any of the required points of the rubric, took me too long to figure out what to improve or tweak.
+
+For a next iteration of this work I would definetely take my time to break down the existing code and hopefully have some more depth on the 
+inital diagram before starting.
+
+**** One of the things that I know they are not fully working is the capability to identify the Name of the product mathing what's on DB,
+for that there is a workaround using the get_close_matches library, but i know the match are not the bests creating duplicate entries and
+issues when it comes to identify the product to Quote.
