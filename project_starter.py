@@ -1015,6 +1015,7 @@ class OrchestrationAgent(ToolCallingAgent):
             - Inventory questions → inventory_lookup
             - Pricing / quote requests → pricing_lookup
             - Purchase confirmations → finalize_sale
+            - Financial status inquiries → financial_report_lookup
             """
         )
 
