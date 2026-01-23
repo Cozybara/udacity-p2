@@ -1,0 +1,141 @@
+request_id,request_date,cash_balance,inventory_value,response
+1,2025-04-01,45099.7,4870.3,"Summary of requested paper supplies:
+
+- **Colored Paper:** 100 sheets bought for $10.00. Available stock and order fulfilled.
+- **A4 Glossy Paper:** 200 sheets requested but out of stock. Estimated restock date: 2025-04-15.
+- **Heavy Cardstock:** 100 sheets requested but out of stock. Estimated restock date: 2025-04-02.
+
+Only the colored paper was successfully purchased."
+2,2025-04-03,44999.7,4870.3,"Your order summary is as follows: 
+- **Colorful Poster Paper**: 200 sheets ordered and successfully purchased (only 200 available out of 500 requested).
+- **Streamers**: Out of stock, cannot be ordered.
+- **Balloons**: Out of stock, cannot be ordered. 
+
+Please note that the colorful poster paper will be delivered by October 13, 2023. Unfortunately, the streamers and balloons are currently unavailable, and restock dates cannot be provided."
+3,2025-04-04,44923.3,4856.7,"Order Summary:
+
+1. **A4 Paper**: 
+   - Requested: 10,000 sheets 
+   - Fulfilled: 272 sheets 
+   - Status: Partially Fulfilled
+   - Total Price: $13.60
+
+2. **A3 Paper**: 
+   - Status: Out of Stock 
+   - Estimated Restock Date: April 5, 2025 
+
+3. **Printer Paper**: 
+   - Requested: 500 reams 
+   - Fulfilled: 300 reams 
+   - Status: Partially Fulfilled 
+   - Total Price for Fulfilled Quantity (300): $150.00 
+
+Note: The A3 paper and part of the A4 paper were not fully available for fulfillment."
+4,2025-04-05,44848.299999999996,4856.7,"Currently, both items requested are out of stock:
+- **High-quality, recycled cardstock**: Not available for purchase.
+- **A4 size printer paper**: Also out of stock with no restock date provided.
+
+Unfortunately, we cannot proceed with the order."
+5,2025-04-05,44837.1,4777.9,"Order Summary:
+- 500 sheets of 8.5""x11"" colored paper: 288 sheets fulfilled, 212 sheets out of stock (restock date unavailable).
+- 300 sheets of cardstock in various colors: Out of stock; estimated restock on 2023-10-26.
+- 200 rolls of decorative washi tape: Out of stock; no restock date available.
+
+Total Items Bought:
+- 288 sheets of 8.5""x11"" colored paper.
+
+Items Not Bought:
+- 212 sheets of 8.5""x11"" colored paper.
+- 300 sheets of cardstock in various colors (available after 2023-10-26).
+- 200 rolls of decorative washi tape."
+6,2025-04-06,44282.100000000006,4747.9,"The order has been partially successful. The following items were bought:
+- 200 sheets of cardstock in various colors (Transaction ID: 82, Total Price: $30.00)
+
+The following items could not be purchased due to inventory issues:
+- 500 sheets of colorful construction paper (out of stock, no restock date available)
+- 300 sheets of white printer paper (not found in inventory)
+
+Please let me know if you would like to take any further action!"
+7,2025-04-07,44359.5,4670.499999999999,"Summary of the order:
+
+1. **Glossy A4 paper**: Ordered 500 sheets, **Partially Fulfilled** - only 387 sheets available. 
+2. **Matte A3 paper**: Ordered 1000 sheets, **Out of Stock** - Next restock expected on 2025-04-08.
+3. **Poster boards (24"" x 36"")**: Ordered 300 boards, **Out of Stock** - No restock date available.
+4. **Heavyweight cardstock**: Ordered 200 sheets, **Out of Stock** - No restock date available.
+
+Items available: 387 sheets of glossy A4 paper.
+
+Items not available: 1000 sheets of matte A3 paper, 300 poster boards, and 200 sheets of heavyweight cardstock."
+8,2025-04-07,44307.0,4670.499999999999,"Summary of your order:
+1. A4 glossy paper: Ordered 500 sheets - Purchase successful.
+2. A4 matte paper: Ordered 1000 sheets - Out of stock, cannot fulfill.
+3. A5 colored paper: Ordered 2000 sheets - Out of stock, cannot fulfill.
+4. A4 recycled paper: Ordered 3000 sheets - Available 650 sheets - Partial fulfillment successful.
+
+Items that were out of stock:
+- A4 matte paper - estimated restock date: 2023-10-24.
+- A5 colored paper - estimated restock date: 2025-04-08."
+9,2025-04-07,44237.0,4670.499999999999,"The order cannot be fulfilled as the following items are out of stock:
+1. A4 white printer paper - Estimated restock by 2023-10-19.
+2. A3 glossy paper - No restock date available.
+3. 100% recycled kraft paper envelopes - No restock date available.
+
+Unfortunately, none of the requested items can be purchased at this time."
+13,2025-04-08,44226.25,4641.25,"Order Summary:
+- Cardstock: Ordered 200 sheets, partially fulfilled with 195 sheets delivered, 5 sheets short. 
+- A4 Printing Paper: Ordered 500 sheets, out of stock. Expected restock on 2025-04-09."
+12,2025-04-08,44066.25,4491.25,"Order Summary:
+- 200 sheets of colorful cardstock: Out of stock (no pricing available, estimated restock by 2023-10-16)
+- 500 sheets of standard printer paper: Ordered and fulfilled (Transaction ID: 0, Total Price: $150.00)
+- 100 paper napkins: Out of stock (no restock date available)"
+10,2025-04-08,44036.25,4491.25,"Order Summary: 
+- 500 sheets of high-quality glossy paper: Successfully ordered. 
+- 300 sheets of sturdy cardstock: Unable to fulfill as only 200 were available in stock, and cannot complete the order as it is out of stock. 
+
+Sturdy cardstock is currently out of stock, with the next estimated restock date on 2023-10-02."
+11,2025-04-08,43976.25,4491.25,"Order Summary:
+- A3 glossy paper: 500 sheets ordered and available for delivery.
+- A4 matte paper: 300 sheets requested, but only 200 sheets available. The order for 200 sheets was accepted, but 100 sheets are still out of stock with no available restock date."
+14,2025-04-09,43271.25,4491.25,"The order has been processed for cardstock with a quantity of 500 sheets at a price of $75.00. However, the requests for A4 paper (5000 sheets) and poster paper (2000 sheets) could not be fulfilled as they are currently out of stock. The estimated restocking date for poster paper is April 10, 2025."
+15,2025-04-12,43261.25,4491.25,"Summary of the order:
+
+- **A4 white paper**: 10,000 sheets - *Out of stock. Restock expected on 2025-04-13.*
+- **A3 colored paper**: 5,000 sheets - *Out of stock. Restock expected on 2025-04-13.*
+- **Cardboard for signage**: 500 reams - *Out of stock. Unable to provide restock date.*
+
+Unfortunately, none of the requested items can be fulfilled at this time due to lack of stock."
+16,2025-04-13,43216.25,4491.25,"The order could not be placed successfully. Here are the details:
+- A4 printer paper: Out of stock, estimated restock on 2025-04-14.
+- Colorful construction paper: Out of stock, no restock date available.
+- Poster board: Out of stock, no restock date available.
+
+Unfortunately, none of the requested items are currently available for purchase."
+17,2025-04-14,43246.05,4416.45,"The order for paper supplies has been processed as follows:
+
+- **A4 White Printer Paper**: Ordered 1000 sheets, **Partially Fulfilled** (800 available). 248 sheets out of stock. Total cost for 800 sheets: $240.00.
+- **A3 Colored Paper**: 500 sheets - **Available** and fulfilled.
+- **Table Napkins**: 2000 - **Out of Stock** (No restock date available).
+- **Paper Cups**: 1000 - **Available** and fulfilled.
+- **Paper Plates**: 500 - **Out of Stock** (Next restock estimated: 2025-04-15).
+
+**Summary**: 
+- Items fulfilled: A4 White Printer Paper (800), A3 Colored Paper (500), Paper Cups (1000).
+- Items not fulfilled: 248 A4 White Printer Paper, 2000 Table Napkins, 1000 Paper Plates."
+18,2025-04-14,43216.05,4416.45,"Order Summary:
+- 500 sheets of high-quality white cardstock: Out of stock, no restock date available.
+- 1000 sheets of standard printing paper: Out of stock, no restock date available.
+- 200 sheets of colored paper in assorted colors: Out of stock, restock expected on 2023-10-02.
+
+Unfortunately, none of the items you requested are available for purchase at this time."
+19,2025-04-15,43203.25,4334.25,"Order Summary:
+
+- **A4 glossy paper**: Ordered 2000 sheets, Transaction completed. (Stock available)
+- **A3 matte paper**: Ordered 1500 sheets, Out of stock (Restock date: 2025-04-16)
+- **Cardstock in assorted colors**: Ordered 1000 sheets, Out of stock (Restock date: 2023-10-06)
+"
+20,2025-04-17,43163.25,4334.25,"Unfortunately, the following items could not be purchased for your order:
+- Flyers: Currently out of stock, estimated restock date is 2023-10-11.
+- Tickets: Currently unavailable, no restock date can be provided.
+- Posters: Not available in inventory, unable to generate a quote.
+
+Thus, no items are available for purchase at this time."

@@ -144,7 +144,7 @@ def generate_financial_report(as_of_date: Union[str, datetime]) -> Dict:
     - Top 5 best-selling products
 
     Args:
-        as_of_date (str or datetime): The date (inclusive) for which to generate the report.
+        as_of_date (str or datetime): The date (inclusive››) for which to generate the report.
 
     Returns:
         Dict: A dictionary containing the financial report fields:
@@ -706,6 +706,23 @@ def estimate_restock_date(
 
 # Tools for Pricing agent
 @tool
+def get_financial_report(as_of_date: str) -> dict:
+    """
+    Generate a financial report as of a given date.
+    Args:
+        as_of_date (str): The date to generate the report as of.
+    Returns:
+        Dict: A dictionary containing the financial report with fields:
+            - as_of_date (str): The date of the report.
+            - cash_balance (float): Total cash available.
+            - inventory_value (float): Total value of inventory.
+            - total_assets (float): Combined cash and inventory value.
+            - inventory_summary (List[Dict]): List of items with stock and valuation details.
+            - top_selling_products (List[Dict]): List of top 5 products by revenue
+    """
+    return generate_financial_report(as_of_date)
+
+@tool
 def get_unit_price(item_name: str) -> float:
     """
     Retrieve the unit price for an item from inventory.
@@ -860,6 +877,17 @@ class InventoryManagerAgent(ToolCallingAgent):
             description="Manages inventory availability and supplier restocking timelines."
         )
 
+# Finance Agent
+class FinanceManagerAgent(ToolCallingAgent):
+    """Agent responsible for financial reporting and company health metrics."""
+    def __init__(self, model: OpenAIServerModel):
+        super().__init__(
+            model=model,
+            tools=[get_financial_report],
+            name="finance_manager",
+            description="Provides financial reports, asset summaries, and sales performance."
+        )
+
     
 # Quoting agent
 class QuotingManagerAgent(ToolCallingAgent):
@@ -895,8 +923,20 @@ class OrchestrationAgent(ToolCallingAgent):
         self.inventory_manager = InventoryManagerAgent(model)
         self.quoting_manager = QuotingManagerAgent(model)
         self.ordering_manager = OrderingManagerAgent(model)
+        self.finance_manager = FinanceManagerAgent(model)
 
         # Orchestrator Routing tools
+        @tool
+        def financial_report_lookup(as_of_date: str) -> dict:
+            """
+            Route a financial reporting request to the Finance Manager agent.
+            Args:
+                as_of_date (str): The date to generate the report as of.
+            Returns:
+                Dict: The financial report returned by the Finance Manager agent.
+            """
+            return self.finance_manager.run(f"Generate a financial report as of {as_of_date}.")
+            
         @tool
         def inventory_lookup(item_name: str, as_of_date: str = datetime.now().strftime("%Y-%m-%d")) -> dict:
             """
@@ -956,6 +996,7 @@ class OrchestrationAgent(ToolCallingAgent):
                 inventory_lookup,
                 pricing_lookup,
                 finalize_sale,
+                financial_report_lookup
             ],
             name="orchestrator",
             description="""
@@ -989,6 +1030,7 @@ class OrchestrationAgent(ToolCallingAgent):
         - Inventory status → inventory_lookup
         - Quote / pricing → pricing_lookup
         - Purchase / order → finalize_sale
+        - Financial status / cash / revenue / assets → financial_report_lookup
 
         Call exactly ONE routing tool. And use the corresponding request date if provided by the user.
         At the end, provide a summary in one consise response to the user with the items that were bought and the ones that didn't.
